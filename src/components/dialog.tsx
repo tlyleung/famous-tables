@@ -20,11 +20,71 @@ import { Input } from '@/components/catalyst/input';
 import { Select } from '@/components/catalyst/select';
 import { Switch, SwitchField } from '@/components/catalyst/switch';
 import { Textarea } from '@/components/catalyst/textarea';
+import { PlaceType } from '@/data';
 import { zodResolver } from '@hookform/resolvers/zod';
+import dynamic from 'next/dynamic';
+import { Fragment } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-export default function SuggestionDialog({
+const DynamicMiniMap = dynamic(
+  () => import('@/components/map').then((mod) => mod.MiniMap),
+  { ssr: false },
+);
+
+export function PlaceDialog({
+  miniMap,
+  setMiniMap,
+  place,
+  setPlace,
+}: {
+  miniMap: L.Map | null;
+  setMiniMap: (map: L.Map | null) => void;
+  place: PlaceType;
+  setPlace: (place: PlaceType | null) => void;
+}) {
+  return (
+    <Dialog open={place != null} onClose={() => setPlace(null)}>
+      <DialogTitle>{place.name}</DialogTitle>
+      <DialogDescription>{place.address}</DialogDescription>
+      <DialogBody className="text-base/6 text-zinc-900 sm:text-sm/6 dark:text-white">
+        <DynamicMiniMap
+          place={place}
+          miniMap={miniMap}
+          setMiniMap={setMiniMap}
+        />
+        {place.events.map((event, eventIndex) => (
+          <Fragment key={`event-${eventIndex}`}>
+            {eventIndex > 0 && <Divider className="my-6" />}
+            <div>
+              <p className="mb-4">{`${event.description} in ${event.year}.`}</p>
+              {event.quotes.map((quote, quoteIndex) => (
+                <div
+                  key={`quote-${quoteIndex}`}
+                  className="mb-4 text-zinc-500 dark:text-zinc-400"
+                >
+                  <blockquote>
+                    <p>“{quote.text}”</p>
+                  </blockquote>
+                  <p>
+                    ― {quote.authors.join(', ')}, <em>{quote.title}</em>
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Fragment>
+        ))}
+      </DialogBody>
+      <DialogActions>
+        <Button plain onClick={() => setPlace(null)}>
+          Close
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+export function SuggestionDialog({
   isOpen,
   setIsOpen,
 }: {

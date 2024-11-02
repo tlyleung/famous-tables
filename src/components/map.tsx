@@ -92,7 +92,7 @@ export function Map({
         style={{ border: '2px solid rgba(0, 0, 0, 0.2)' }}
         onClick={centerOnCurrentLocation}
       >
-        <ViewfinderCircleIcon className="box-content h-6 w-6 bg-[#ffffff] p-[3px] text-white hover:bg-[#f4f4f4] dark:text-gray-900" />
+        <ViewfinderCircleIcon className="box-content h-6 w-6 bg-[#ffffff] p-[3px] text-black hover:bg-[#f4f4f4]" />
       </div>
     </>
   );

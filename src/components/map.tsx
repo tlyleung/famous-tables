@@ -1,4 +1,4 @@
-import { PlaceType, icon } from '@/data';
+import { PlaceType } from '@/data';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 export default function Map({
@@ -7,7 +7,7 @@ export default function Map({
   setMap,
   setPlace,
 }: {
-  bounds: L.LatLngBounds;
+  bounds: [[number, number], [number, number]];
   places: PlaceType[];
   setMap: (map: L.Map | null) => void;
   setPlace: (place: PlaceType | null) => void;
@@ -28,7 +28,6 @@ export default function Map({
         <Marker
           key={`place-${placeIndex}`}
           position={place.latlng}
-          icon={icon}
           eventHandlers={{ click: () => setPlace(place) }}
         />
       ))}

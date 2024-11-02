@@ -1,12 +1,10 @@
-import L, { LatLng, LatLngBounds } from 'leaflet';
-
 const places: PlaceType[] = [
   {
     name: 'Evvia Estiatorio',
     address: '420 Emerson St, Palo Alto, CA 94301, United States',
     category: 'Greek restaurant',
     closed: false,
-    latlng: L.latLng(37.44517395192061, -122.16378052454957),
+    latlng: [37.44517395192061, -122.16378052454957],
     events: [
       {
         description:
@@ -58,38 +56,27 @@ const places: PlaceType[] = [
   },
 ];
 
-export const london: L.LatLngBounds = L.latLngBounds(
-  L.latLng(51.53135619079523, -0.08182149094053658),
-  L.latLng(51.491576912253926, -0.19390027804411508),
-);
+export const london: [[number, number], [number, number]] = [
+  [51.491576912253926, -0.19390027804411508],
+  [51.53135619079523, -0.08182149094053658],
+];
 
-export const newYork: L.LatLngBounds = L.latLngBounds(
-  L.latLng(40.86323212220611, -73.80047469988962),
-  L.latLng(40.66404484264575, -74.06826645151733),
-);
+export const newYork: [[number, number], [number, number]] = [
+  [40.66404484264575, -74.06826645151733],
+  [40.86323212220611, -73.80047469988962],
+];
 
-export const siliconValley: L.LatLngBounds = L.latLngBounds(
-  L.latLng(37.44932057039871, -121.88416847719738),
-  L.latLng(37.34403806224733, -122.18491921873996),
-);
-
-export const icon = L.icon({
-  iconAnchor: [12, 41],
-  iconRetinaUrl: '/images/marker-icon-2x.png',
-  iconSize: [25, 41],
-  iconUrl: '/images/marker-icon.png',
-  shadowSize: [41, 41],
-  shadowUrl: '/images/marker-shadow.png',
-  // popupAnchor: [1, -34],
-  // tooltipAnchor: [16, -28],
-});
+export const siliconValley: [[number, number], [number, number]] = [
+  [37.34403806224733, -122.18491921873996],
+  [37.44932057039871, -121.88416847719738],
+];
 
 export type PlaceType = {
   name: string;
   address: string;
   category: string;
   closed: boolean;
-  latlng: LatLng;
+  latlng: [number, number];
   events: EventType[];
 };
 
@@ -108,10 +95,14 @@ export type QuoteType = {
 };
 
 export async function getBoundedPlaces(
-  bounds: LatLngBounds,
+  bounds: [[number, number], [number, number]],
 ): Promise<PlaceType[]> {
   const places = await getPlaces();
-  return places.filter((place) => bounds.contains(place.latlng));
+  const [[swLat, swLng], [neLat, neLng]] = bounds;
+  return places.filter(
+    ({ latlng: [lat, lng] }) =>
+      lat >= swLat && lat <= neLat && lng >= swLng && lng <= neLng,
+  );
 }
 
 export async function getPlaces(): Promise<PlaceType[]> {

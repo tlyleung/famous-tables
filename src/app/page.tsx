@@ -29,7 +29,8 @@ const DynamicMap = dynamic(() => import('@/components/map'), {
 });
 
 export default function Home() {
-  const [bounds, setBounds] = useState<L.LatLngBounds>(siliconValley);
+  const [bounds, setBounds] =
+    useState<[[number, number], [number, number]]>(siliconValley);
   const [map, setMap] = useState<L.Map | null>(null);
   const [miniMap, setMiniMap] = useState<L.Map | null>(null);
   const [place, setPlace] = useState<PlaceType | null>(null);
@@ -37,7 +38,13 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   const onMove = useCallback(() => {
-    if (map) setBounds(map.getBounds());
+    if (map) {
+      const bounds = map.getBounds();
+      setBounds([
+        [bounds.getSouthWest().lat, bounds.getSouthWest().lng],
+        [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
+      ]);
+    }
   }, [map]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { PlaceType, icon } from '@/data';
+import { PlaceType } from '@/data';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 export default function MiniMap({
@@ -26,7 +26,7 @@ export default function MiniMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={place.latlng} icon={icon} />
+      <Marker position={place.latlng} />
     </MapContainer>
   );
 }

@@ -21,9 +21,10 @@ import { Select } from '@/components/catalyst/select';
 import { Switch, SwitchField } from '@/components/catalyst/switch';
 import { Textarea } from '@/components/catalyst/textarea';
 import { PlaceType } from '@/data';
+import { BookmarkIcon, LinkIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import dynamic from 'next/dynamic';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -43,11 +44,32 @@ export function PlaceDialog({
   place: PlaceType;
   setPlace: (place: PlaceType | null) => void;
 }) {
+  const [buttonText, setButtonText] = useState('Copy Link');
+
+  const handleCopy = () => {
+    const baseUrl = `${location.protocol}//${location.host}${location.pathname}`;
+    navigator.clipboard.writeText(
+      `${baseUrl}?p=${encodeURIComponent(place.name)}`,
+    );
+    setButtonText('Link Copied');
+    setTimeout(() => setButtonText('Share'), 3000);
+  };
+
   return (
     <Dialog open={place != null} onClose={() => setPlace(null)}>
       <DialogTitle>{place.name}</DialogTitle>
       <DialogDescription>{place.address}</DialogDescription>
       <DialogBody className="text-base/6 text-zinc-900 sm:text-sm/6 dark:text-white">
+        <div className="mb-6 flex space-x-4">
+          <Button outline onClick={handleCopy}>
+            <LinkIcon />
+            {buttonText}
+          </Button>
+          <Button outline disabled>
+            <BookmarkIcon />
+            Save
+          </Button>
+        </div>
         <DynamicMiniMap
           place={place}
           miniMap={miniMap}

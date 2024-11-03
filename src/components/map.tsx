@@ -51,8 +51,8 @@ export function Map({
   }, [map]);
 
   useEffect(() => {
-    const fetchData = async () => setPlaces(await getBoundedPlaces(bounds));
-    fetchData();
+    const fetchPlaces = async () => setPlaces(await getBoundedPlaces(bounds));
+    fetchPlaces();
   }, [bounds, map]);
 
   useEffect(() => {

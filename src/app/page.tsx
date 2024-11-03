@@ -14,7 +14,7 @@ import {
 } from '@/components/catalyst/sidebar';
 import { SidebarLayout } from '@/components/catalyst/sidebar-layout';
 import { PlaceDialog, SuggestionDialog } from '@/components/dialog';
-import { PlaceType } from '@/data';
+import { PlaceType, getPlace } from '@/data';
 import { london, newYork, siliconValley } from '@/data';
 import {
   BuildingOffice2Icon,
@@ -23,7 +23,8 @@ import {
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 const DynamicMap = dynamic(
   () => import('@/components/map').then((mod) => mod.Map),
@@ -98,6 +99,16 @@ export default function Home() {
   const [place, setPlace] = useState<PlaceType | null>(null);
   const [places, setPlaces] = useState<PlaceType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const fetchPlace = async () => {
+      const name = searchParams.get('p');
+      if (name) setPlace(await getPlace(name));
+    };
+    fetchPlace();
+  }, [searchParams]);
 
   return (
     <SidebarLayout

@@ -105,6 +105,12 @@ export async function getBoundedPlaces(
   );
 }
 
+export async function getPlace(name: string): Promise<PlaceType | null> {
+  const places = await getPlaces();
+  const place = places.find((place) => place.name === name);
+  return place === undefined ? null : place;
+}
+
 export async function getPlaces(): Promise<PlaceType[]> {
   return places;
 }

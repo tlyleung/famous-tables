@@ -87,7 +87,7 @@ export function PlaceDialog({
                   className="mb-4 text-zinc-500 dark:text-zinc-400"
                 >
                   <blockquote>
-                    <p>“{quote.text}”</p>
+                    <p>{quote.text}</p>
                   </blockquote>
                   {quote.url ? (
                     <p>

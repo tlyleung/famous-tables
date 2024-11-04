@@ -68,7 +68,7 @@ export function PlaceDialog({
           </Button>
           <Button outline disabled>
             <BookmarkIcon />
-            Save
+            Save Place
           </Button>
         </div>
         <DynamicMiniMap

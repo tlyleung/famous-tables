@@ -24,6 +24,7 @@ import { PlaceType } from '@/data';
 import { BookmarkIcon, LinkIcon } from '@heroicons/react/16/solid';
 import { zodResolver } from '@hookform/resolvers/zod';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { Fragment, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -88,9 +89,18 @@ export function PlaceDialog({
                   <blockquote>
                     <p>“{quote.text}”</p>
                   </blockquote>
-                  <p>
-                    ― {quote.authors.join(', ')}, <em>{quote.title}</em>
-                  </p>
+                  {quote.url ? (
+                    <p>
+                      ―{' '}
+                      <Link className="underline" href={quote.url}>
+                        {quote.authors.join(', ')}, <em>{quote.title}</em>
+                      </Link>
+                    </p>
+                  ) : (
+                    <p>
+                      ― {quote.authors.join(', ')}, <em>{quote.title}</em>
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
@@ -132,6 +142,11 @@ export function SuggestionDialog({
     quoteTitle: z.string().min(1, 'Book title is required'),
     quoteAuthors: z.string().min(1, 'At least one author is required'),
     quoteText: z.string().min(1, 'Quote is required'),
+    quoteUrl: z
+      .string()
+      .url('Link URL must be a valid or left blank')
+      .optional()
+      .or(z.literal('')),
   });
 
   // Integrate with React Hook Form using zodResolver
@@ -155,6 +170,7 @@ export function SuggestionDialog({
       quoteTitle: '',
       quoteAuthors: '',
       quoteText: '',
+      quoteUrl: '',
     },
   });
 
@@ -183,6 +199,7 @@ export function SuggestionDialog({
               authors: data.quoteAuthors
                 .split(',')
                 .map((author: string) => author.trim()),
+              url: data.quoteUrl,
               text: data.quoteText,
             },
           ],
@@ -213,6 +230,7 @@ Event
 Book
 - Book title: ${formData.events[0].quotes[0].title}
 - Authors: ${formData.events[0].quotes[0].authors.join(', ')}
+- Link URL: ${formData.events[0].quotes[0].url}
 - Quote: "${formData.events[0].quotes[0].text}"
 
 ---
@@ -406,6 +424,13 @@ ${jsonContent}
                 <ErrorMessage>
                   {String(errors.quoteAuthors.message)}
                 </ErrorMessage>
+              )}
+            </Field>
+            <Field>
+              <Label>Link URL (optional)</Label>
+              <Input {...register('quoteUrl')} invalid={!!errors.quoteUrl} />
+              {errors.quoteUrl && (
+                <ErrorMessage>{String(errors.quoteUrl.message)}</ErrorMessage>
               )}
             </Field>
             <Field>

@@ -24,7 +24,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import dynamic from 'next/dynamic';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 
 const DynamicMap = dynamic(
   () => import('@/components/map').then((mod) => mod.Map),
@@ -91,6 +91,24 @@ const sidebar = (
   </Sidebar>
 );
 
+function FetchPlace({
+  setPlace,
+}: {
+  setPlace: (place: PlaceType | null) => void;
+}) {
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const fetchPlace = async () => {
+      const name = searchParams.get('p');
+      if (name) setPlace(await getPlace(name));
+    };
+    fetchPlace();
+  }, [searchParams, setPlace]);
+
+  return null;
+}
+
 export default function Home() {
   const [bounds, setBounds] =
     useState<[[number, number], [number, number]]>(siliconValley);
@@ -100,40 +118,33 @@ export default function Home() {
   const [places, setPlaces] = useState<PlaceType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const fetchPlace = async () => {
-      const name = searchParams.get('p');
-      if (name) setPlace(await getPlace(name));
-    };
-    fetchPlace();
-  }, [searchParams]);
-
   return (
-    <SidebarLayout
-      navbar={<Navbar></Navbar>}
-      sidebar={sidebar(map, places, setPlace, setIsOpen)}
-    >
-      <DynamicMap
-        bounds={bounds}
-        setBounds={setBounds}
-        map={map}
-        setMap={setMap}
-        place={place}
-        setPlace={setPlace}
-        places={places}
-        setPlaces={setPlaces}
-      />
-      {place && (
-        <PlaceDialog
-          miniMap={miniMap}
-          setMiniMap={setMiniMap}
+    <Suspense fallback={<div>Loading...</div>}>
+      <SidebarLayout
+        navbar={<Navbar></Navbar>}
+        sidebar={sidebar(map, places, setPlace, setIsOpen)}
+      >
+        <DynamicMap
+          bounds={bounds}
+          setBounds={setBounds}
+          map={map}
+          setMap={setMap}
           place={place}
           setPlace={setPlace}
+          places={places}
+          setPlaces={setPlaces}
         />
-      )}
-      <SuggestionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-    </SidebarLayout>
+        <FetchPlace setPlace={setPlace} />
+        {place && (
+          <PlaceDialog
+            miniMap={miniMap}
+            setMiniMap={setMiniMap}
+            place={place}
+            setPlace={setPlace}
+          />
+        )}
+        <SuggestionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      </SidebarLayout>
+    </Suspense>
   );
 }

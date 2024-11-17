@@ -119,32 +119,32 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SidebarLayout
-        navbar={<Navbar></Navbar>}
-        sidebar={sidebar(map, places, setPlace, setIsOpen)}
-      >
-        <DynamicMap
-          bounds={bounds}
-          setBounds={setBounds}
-          map={map}
-          setMap={setMap}
+    <SidebarLayout
+      navbar={<Navbar></Navbar>}
+      sidebar={sidebar(map, places, setPlace, setIsOpen)}
+    >
+      <DynamicMap
+        bounds={bounds}
+        setBounds={setBounds}
+        map={map}
+        setMap={setMap}
+        place={place}
+        setPlace={setPlace}
+        places={places}
+        setPlaces={setPlaces}
+      />
+      <Suspense fallback={null}>
+        <FetchPlace setPlace={setPlace} />
+      </Suspense>
+      {place && (
+        <PlaceDialog
+          miniMap={miniMap}
+          setMiniMap={setMiniMap}
           place={place}
           setPlace={setPlace}
-          places={places}
-          setPlaces={setPlaces}
         />
-        <FetchPlace setPlace={setPlace} />
-        {place && (
-          <PlaceDialog
-            miniMap={miniMap}
-            setMiniMap={setMiniMap}
-            place={place}
-            setPlace={setPlace}
-          />
-        )}
-        <SuggestionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
-      </SidebarLayout>
-    </Suspense>
+      )}
+      <SuggestionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+    </SidebarLayout>
   );
 }

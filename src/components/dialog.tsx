@@ -241,7 +241,7 @@ ${jsonContent}
 `;
 
     // Generate mailto link with the formatted email content
-    const mailtoLink = `mailto:timothyleung@gmail.com?subject=Suggested Place&body=${encodeURIComponent(emailBody)}`;
+    const mailtoLink = `mailto:timothyleung@gmail.com?subject=Suggested Place: ${formData.name}&body=${encodeURIComponent(emailBody)}`;
     window.location.href = mailtoLink;
 
     // Close dialog

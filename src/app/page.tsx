@@ -5,12 +5,12 @@ import { Navbar } from '@/components/catalyst/navbar';
 import {
   Sidebar,
   SidebarBody,
+  SidebarFooter,
   SidebarHeader,
   SidebarHeading,
   SidebarItem,
   SidebarLabel,
   SidebarSection,
-  SidebarSpacer,
 } from '@/components/catalyst/sidebar';
 import { SidebarLayout } from '@/components/catalyst/sidebar-layout';
 import { PlaceDialog, SuggestionDialog } from '@/components/dialog';
@@ -94,7 +94,8 @@ const sidebar = (
           </SidebarItem>
         ))}
       </SidebarSection>
-      <SidebarSpacer />
+    </SidebarBody>
+    <SidebarFooter>
       <SidebarSection>
         <SidebarItem onClick={() => setIsOpen(true)}>
           <BuildingStorefrontIcon />
@@ -108,7 +109,7 @@ const sidebar = (
           <SidebarLabel>GitHub Repository</SidebarLabel>
         </SidebarItem>
       </SidebarSection>
-    </SidebarBody>
+    </SidebarFooter>
   </Sidebar>
 );
 

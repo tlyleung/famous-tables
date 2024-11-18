@@ -1,8 +1,18 @@
 import { PlaceType, getBoundedPlaces } from '@/data';
 import { ViewfinderCircleIcon } from '@heroicons/react/20/solid';
+import L from 'leaflet';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+
+const iconHover = new L.Icon({
+  iconAnchor: [12, 41],
+  iconRetinaUrl: '/marker-icon-hover-2x.png',
+  iconSize: [25, 41],
+  iconUrl: '/marker-icon-hover.png',
+  shadowSize: [41, 41],
+  shadowUrl: '/marker-shadow.png',
+});
 
 export function Map({
   bounds,
@@ -13,6 +23,8 @@ export function Map({
   setPlace,
   places,
   setPlaces,
+  placeHover,
+  setPlaceHover,
 }: {
   bounds: [[number, number], [number, number]];
   setBounds: (bounds: [[number, number], [number, number]]) => void;
@@ -22,6 +34,8 @@ export function Map({
   setPlace: (place: PlaceType | null) => void;
   places: PlaceType[];
   setPlaces: (places: PlaceType[]) => void;
+  placeHover: PlaceType | null;
+  setPlaceHover: (place: PlaceType | null) => void;
 }) {
   const centerOnCurrentLocation = useCallback(() => {
     if (navigator.geolocation) {
@@ -81,9 +95,14 @@ export function Map({
         />
         {places.map((place, placeIndex) => (
           <Marker
-            key={`place-${placeIndex}`}
+            key={`place-${placeIndex}` + (place === placeHover ? '-hover' : '')}
             position={place.latlng}
-            eventHandlers={{ click: () => setPlace(place) }}
+            eventHandlers={{
+              click: () => setPlace(place),
+              mouseover: () => setPlaceHover(place),
+              mouseout: () => setPlaceHover(null),
+            }}
+            {...(place === placeHover && { icon: iconHover })}
           />
         ))}
       </MapContainer>

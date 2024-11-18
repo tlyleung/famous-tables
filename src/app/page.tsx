@@ -37,6 +37,8 @@ const sidebar = (
   places: PlaceType[],
   setPlace: (place: PlaceType | null) => void,
   setIsOpen: (open: boolean) => void,
+  placeHover: PlaceType | null,
+  setPlaceHover: (place: PlaceType | null) => void,
 ) => (
   <Sidebar>
     <SidebarHeader>
@@ -74,7 +76,13 @@ const sidebar = (
           </SidebarItem>
         )}
         {places.map((place, placeIndex) => (
-          <SidebarItem key={placeIndex} onClick={() => setPlace(place)}>
+          <SidebarItem
+            key={placeIndex}
+            onClick={() => setPlace(place)}
+            onMouseEnter={() => setPlaceHover(place)}
+            onMouseLeave={() => setPlaceHover(null)}
+            data-hover={place === placeHover ? 'true' : undefined}
+          >
             <div>
               <h1 className="text-base/7 font-semibold text-zinc-950 sm:text-sm/6 dark:text-white">
                 {place.name}
@@ -128,13 +136,21 @@ export default function Home() {
   const [map, setMap] = useState<L.Map | null>(null);
   const [miniMap, setMiniMap] = useState<L.Map | null>(null);
   const [place, setPlace] = useState<PlaceType | null>(null);
+  const [placeHover, setPlaceHover] = useState<PlaceType | null>(null);
   const [places, setPlaces] = useState<PlaceType[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <SidebarLayout
       navbar={<Navbar></Navbar>}
-      sidebar={sidebar(map, places, setPlace, setIsOpen)}
+      sidebar={sidebar(
+        map,
+        places,
+        setPlace,
+        setIsOpen,
+        placeHover,
+        setPlaceHover,
+      )}
     >
       <DynamicMap
         bounds={bounds}
@@ -145,6 +161,8 @@ export default function Home() {
         setPlace={setPlace}
         places={places}
         setPlaces={setPlaces}
+        placeHover={placeHover}
+        setPlaceHover={setPlaceHover}
       />
       <Suspense fallback={null}>
         <FetchPlace setPlace={setPlace} />

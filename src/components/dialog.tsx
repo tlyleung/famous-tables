@@ -250,7 +250,7 @@ ${jsonContent}
 
   return (
     <Dialog open={isOpen} onClose={setIsOpen}>
-      <DialogTitle>Suggest a place</DialogTitle>
+      <DialogTitle>Suggest a Place</DialogTitle>
       <DialogDescription>
         Suggest an important event at a bar or restaurant that has been
         mentioned in a book.

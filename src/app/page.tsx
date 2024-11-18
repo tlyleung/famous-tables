@@ -14,6 +14,7 @@ import {
 } from '@/components/catalyst/sidebar';
 import { SidebarLayout } from '@/components/catalyst/sidebar-layout';
 import { PlaceDialog, SuggestionDialog } from '@/components/dialog';
+import { GitHubIcon } from '@/components/icons';
 import { PlaceType, getPlace } from '@/data';
 import { london, newYork, siliconValley } from '@/data';
 import {
@@ -40,7 +41,7 @@ const sidebar = (
   <Sidebar>
     <SidebarHeader>
       <SidebarSection>
-        <SidebarItem>
+        <SidebarItem href="/">
           <Avatar
             initials="ft"
             className="size-6 bg-zinc-900 text-white dark:bg-white dark:text-black"
@@ -67,6 +68,11 @@ const sidebar = (
     <SidebarBody>
       <SidebarSection>
         <SidebarHeading>Results</SidebarHeading>
+        {places.length === 0 && (
+          <SidebarItem disabled>
+            <SidebarLabel>No places found.</SidebarLabel>
+          </SidebarItem>
+        )}
         {places.map((place, placeIndex) => (
           <SidebarItem key={placeIndex} onClick={() => setPlace(place)}>
             <div>
@@ -84,7 +90,14 @@ const sidebar = (
       <SidebarSection>
         <SidebarItem onClick={() => setIsOpen(true)}>
           <BuildingStorefrontIcon />
-          <SidebarLabel>Suggest a place</SidebarLabel>
+          <SidebarLabel>Suggest a Place</SidebarLabel>
+        </SidebarItem>
+        <SidebarItem
+          href="https://github.com/tlyleung/famous-tables"
+          aria-label="GitHub repository"
+        >
+          <GitHubIcon />
+          <SidebarLabel>GitHub Repository</SidebarLabel>
         </SidebarItem>
       </SidebarSection>
     </SidebarBody>

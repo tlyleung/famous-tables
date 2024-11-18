@@ -55,7 +55,7 @@ const places: PlaceType[] = [
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/famous-tables.git
+   git clone https://github.com/tlyleung/famous-tables.git
    cd famous-tables
    ```
 

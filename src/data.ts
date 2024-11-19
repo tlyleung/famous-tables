@@ -58,6 +58,30 @@ const places: PlaceType[] = [
       },
     ],
   },
+  {
+    name: 'Jack in the Box',
+    address: '2280 El Camino Real, Palo Alto, CA 94306, United States',
+    category: 'Fast food restaurant',
+    closed: false,
+    latlng: [37.42551190241305, -122.14716509992438],
+    events: [
+      {
+        description:
+          'While building Zip2, Elon and Kimbal Musk subsisted on fast food here',
+        people: ['Elon Musk', 'Kimbal Musk'],
+        year: 1995,
+        category: 'Technology',
+        quotes: [
+          {
+            title: 'Elon Musk',
+            authors: ['Walter Isaacson'],
+            url: 'https://www.amazon.com/Elon-Musk-Walter-Isaacson/dp/',
+            text: 'The brothers rented a tiny office in Palo Alto that had room for two desks and futons. For the first six months, they slept in the office and showered at the YMCA. Kimbal, who would later become a chef and restaurateur, got an electric coil and cooked meals occasionally. But mainly they ate at Jack in the Box, because it was cheap, open twenty-four hours, and just a block away. “I can still tell you every single menu item,” Kimbal says. “It’s just seared into my brain.” Elon became a fan of the teriyaki bowl.',
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export const london: [[number, number], [number, number]] = [

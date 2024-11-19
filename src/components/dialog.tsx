@@ -213,7 +213,7 @@ export function SuggestionDialog({
     // Email body with structured message and JSON footer
     const emailBody = `Hello,
 
-I would like to suggest the following place for inclusion on Famous Tables:
+I would like to add the following place to Famous Tables:
 
 Place
 - Place name: ${formData.name}
@@ -235,7 +235,7 @@ Book
 
 ---
 
-Note: The JSON data below is automatically generated to process the suggestion faster.
+Note: The JSON data below is auto-generated. Please do not modify.
 
 ${jsonContent}
 `;

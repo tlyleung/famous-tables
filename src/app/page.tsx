@@ -1,7 +1,13 @@
 'use client';
 
 import { Avatar } from '@/components/catalyst/avatar';
-import { Navbar } from '@/components/catalyst/navbar';
+import {
+  Navbar,
+  NavbarItem,
+  NavbarLabel,
+  NavbarSection,
+  NavbarSpacer,
+} from '@/components/catalyst/navbar';
 import {
   Sidebar,
   SidebarBody,
@@ -43,7 +49,7 @@ const sidebar = (
   <Sidebar>
     <SidebarHeader>
       <SidebarSection>
-        <SidebarItem href="/">
+        <SidebarItem disabled>
           <Avatar
             initials="ft"
             className="size-6 bg-zinc-900 text-white dark:bg-white dark:text-black"
@@ -95,7 +101,7 @@ const sidebar = (
         ))}
       </SidebarSection>
     </SidebarBody>
-    <SidebarFooter>
+    <SidebarFooter className="max-lg:hidden">
       <SidebarSection>
         <SidebarItem onClick={() => setIsOpen(true)}>
           <BuildingStorefrontIcon />
@@ -143,7 +149,22 @@ export default function Home() {
 
   return (
     <SidebarLayout
-      navbar={<Navbar></Navbar>}
+      navbar={
+        <Navbar>
+          <NavbarSpacer />
+          <NavbarSection>
+            <NavbarItem disabled>
+              <NavbarLabel>Famous Tables</NavbarLabel>
+            </NavbarItem>
+          </NavbarSection>
+          <NavbarSpacer />
+          <NavbarSection>
+            <NavbarItem onClick={() => setIsOpen(true)}>
+              <BuildingStorefrontIcon />
+            </NavbarItem>
+          </NavbarSection>
+        </Navbar>
+      }
       sidebar={sidebar(
         map,
         places,

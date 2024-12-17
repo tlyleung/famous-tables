@@ -92,7 +92,10 @@ export function PlaceDialog({
                   {quote.url ? (
                     <p>
                       ―{' '}
-                      <Link className="underline" href={quote.url}>
+                      <Link
+                        className="underline"
+                        href={`${quote.url}?tag=${process.env.NEXT_PUBLIC_TAG}`}
+                      >
                         {quote.authors.join(', ')}, <em>{quote.title}</em>
                       </Link>
                     </p>

@@ -3,7 +3,12 @@ import { ViewfinderCircleIcon } from '@heroicons/react/20/solid';
 import L from 'leaflet';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import {
+  AttributionControl,
+  MapContainer,
+  Marker,
+  TileLayer,
+} from 'react-leaflet';
 
 const iconHover = new L.Icon({
   iconAnchor: [12, 41],
@@ -92,6 +97,10 @@ export function Map({
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <AttributionControl
+          position="bottomright"
+          prefix="As an Amazon Associate, Famous Tables earns from qualifying purchases."
         />
         {places.map((place, placeIndex) => (
           <Marker

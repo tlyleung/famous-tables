@@ -10,11 +10,38 @@ import {
   TileLayer,
 } from 'react-leaflet';
 
-const iconHover = new L.Icon({
+const iconOpen = new L.Icon({
   iconAnchor: [12, 41],
-  iconRetinaUrl: '/marker-icon-hover-2x.png',
+  iconRetinaUrl: '/marker-icon-open-2x.png',
   iconSize: [25, 41],
-  iconUrl: '/marker-icon-hover.png',
+  iconUrl: '/marker-icon-open.png',
+  shadowSize: [41, 41],
+  shadowUrl: '/marker-shadow.png',
+});
+
+const iconOpenHover = new L.Icon({
+  iconAnchor: [12, 41],
+  iconRetinaUrl: '/marker-icon-open-hover-2x.png',
+  iconSize: [25, 41],
+  iconUrl: '/marker-icon-open-hover.png',
+  shadowSize: [41, 41],
+  shadowUrl: '/marker-shadow.png',
+});
+
+const iconClosed = new L.Icon({
+  iconAnchor: [12, 41],
+  iconRetinaUrl: '/marker-icon-closed-2x.png',
+  iconSize: [25, 41],
+  iconUrl: '/marker-icon-closed.png',
+  shadowSize: [41, 41],
+  shadowUrl: '/marker-shadow.png',
+});
+
+const iconClosedHover = new L.Icon({
+  iconAnchor: [12, 41],
+  iconRetinaUrl: '/marker-icon-closed-hover-2x.png',
+  iconSize: [25, 41],
+  iconUrl: '/marker-icon-closed-hover.png',
   shadowSize: [41, 41],
   shadowUrl: '/marker-shadow.png',
 });
@@ -111,7 +138,15 @@ export function Map({
               mouseover: () => setPlaceHover(place),
               mouseout: () => setPlaceHover(null),
             }}
-            {...(place === placeHover && { icon: iconHover })}
+            icon={
+              place.closed
+                ? place === placeHover
+                  ? iconClosedHover
+                  : iconClosed
+                : place === placeHover
+                  ? iconOpenHover
+                  : iconOpen
+            }
           />
         ))}
       </MapContainer>
@@ -157,7 +192,10 @@ export function MiniMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={place.latlng} />
+      <Marker
+        position={place.latlng}
+        icon={place.closed ? iconClosed : iconOpen}
+      />
     </MapContainer>
   );
 }

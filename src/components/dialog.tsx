@@ -1,3 +1,4 @@
+import { Badge } from '@/components/catalyst/badge';
 import { Button } from '@/components/catalyst/button';
 import {
   Dialog,
@@ -58,7 +59,14 @@ export function PlaceDialog({
 
   return (
     <Dialog open={place != null} onClose={() => setPlace(null)}>
-      <DialogTitle>{place.name}</DialogTitle>
+      <DialogTitle>
+        <span>{place.name}</span>
+        {place.closed && (
+          <Badge color="red" className="ml-2">
+            Permanently Closed
+          </Badge>
+        )}
+      </DialogTitle>
       <DialogDescription>{place.address}</DialogDescription>
       <DialogBody className="text-base/6 text-zinc-900 sm:text-sm/6 dark:text-white">
         <div className="mb-6 flex space-x-4">

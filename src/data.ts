@@ -1,5 +1,43 @@
 const places: PlaceType[] = [
   {
+    name: 'Antonio’s Nut House',
+    address: '321 California Ave, Palo Alto, CA 94306, USA',
+    category: 'Bar',
+    closed: true,
+    latlng: [37.42708804567121, -122.1439462221286],
+    events: [
+      {
+        description: 'Plot against X.com CEO Bill Harris was hatched here',
+        people: ['Elon Musk', 'David Sacks', 'Mark Woolway'],
+        year: 2000,
+        category: 'Technology',
+        quotes: [
+          {
+            title: 'The Founders',
+            authors: ['Jimmy Soni'],
+            url: 'https://www.amazon.com/Founders-Paypal-Entrepreneurs-Shaped-Silicon/dp/1501197266',
+            text: 'The week following Thiel’s departure, Sacks, Musk, and Mark Woolway met at a nearby bar called Antonio’s Nut House for a drink. The bar was a Palo Alto melting pot, best known for its bottomless free peanuts—and for the cracking of discarded shells under patrons’ feet. [...] “By the time we left the Nut House that night, we realized everybody was on the same page about this,” one participant said. “That it wasn’t working.” That night, the assembled employees began plotting a putsch against their CEO.',
+          },
+        ],
+      },
+      {
+        description:
+          'Theranos’ cheating on proficiency testing was admitted here',
+        people: ['Alan Beam', 'Curtis Schneider', 'Daniel Young'],
+        year: 2014,
+        category: 'Science',
+        quotes: [
+          {
+            title: 'Bad Blood',
+            authors: ['John Carreyrou'],
+            url: 'https://www.amazon.com/Bad-Blood/dp/B001ZXO340',
+            text: "Daniel Young had sidled up next to him, interrupting his somber thoughts. As was his habit at these work parties, Daniel was drunk. The alcohol made him uncharacteristically friendly and approachable, but Alan knew better than to share his misgivings. Daniel was part of the inner circle. They made small talk, bantering about Daniel’s upper-crust upbringing in Connecticut. As they chatted, the festivities seemed to be winding down. Some colleagues were headed to Antonio's Nut House, a dive bar a few blocks down the street, to have a few more beers. Alan and Daniel tagged along. [...] He told Curtis about the lab’s quality-control data and how it was being kept from him. And he confided something else: the company was cheating on proficiency testing. In case Curtis hadn’t registered the implication of what he’d just said, he spelled it out: Theranos was breaking the law.",
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: 'Buck’s of Woodside',
     address: '3062 Woodside Rd, Woodside, CA 94062, United States',
     category: 'Restaurant',
@@ -147,6 +185,77 @@ const places: PlaceType[] = [
             authors: ['Walter Isaacson'],
             url: 'https://www.amazon.com/Elon-Musk-Walter-Isaacson/dp/1982181281',
             text: 'The brothers rented a tiny office in Palo Alto that had room for two desks and futons. For the first six months, they slept in the office and showered at the YMCA. Kimbal, who would later become a chef and restaurateur, got an electric coil and cooked meals occasionally. But mainly they ate at Jack in the Box, because it was cheap, open twenty-four hours, and just a block away. “I can still tell you every single menu item,” Kimbal says. “It’s just seared into my brain.” Elon became a fan of the teriyaki bowl.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Kaygetsu',
+    address: '325 Sharon Park Dr, Menlo Park, CA 94025, United States',
+    category: 'Restaurant',
+    closed: true,
+    latlng: [37.42357638442663, -122.19717598401411],
+    events: [
+      {
+        description:
+          'Steve Jobs relocated his favourite Japanese restaurant to Apple HQ',
+        people: ['Steve Jobs', 'Toshio Sakuma'],
+        year: 2011,
+        category: 'Technology',
+        quotes: [
+          {
+            title: "Steve Jobs' Life By Design",
+            authors: ['George Beahm'],
+            url: 'https://www.amazon.com/Steve-Jobs-Life-Design-Lessons/dp/1137279834',
+            text: "Back home, Jobs frequented two Palo Alto restaurants—Jinsho and Kaygetsu—where the food was carefully prepared by experienced Japanese chefs. (When Kaygetsu closed, Jobs wooed its chef to Apple's cafeteria, to the delight of its employees who shared Jobs’ enthusiasm for authentic Japanese cuisine.)",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Madera',
+    address: '2825 Sand Hill Rd, Menlo Park, CA 94025, United States',
+    category: 'Restaurant',
+    closed: false,
+    latlng: [37.41976664174141, -122.2118057324804],
+    events: [
+      {
+        description:
+          'Groupon executives celebrated a $5.75bn acquisition offer from Google here',
+        people: ['Andrew Mason', 'Eric Lefkofsky', 'Rob Solomon'],
+        year: 2010,
+        category: 'Technology',
+        quotes: [
+          {
+            title: "Groupon's Biggest Deal Ever",
+            authors: ['Frank Sennett'],
+            url: 'https://www.amazon.com/Groupons-Biggest-Deal-Ever-Unbelievable/dp/125000084X',
+            text: 'Around 9:00 p.m., Mason, Lefkofsky, and Solomon returned to the Rosewood Sand Hill, a luxury hotel in Menlo Park on Sand Hill Road, the fabled street of dreams for seekers of venture capital in Silicon Valley. The trio retired to Madera, the Rosewood restaurant where many a high-tech deal is sealed and celebrated. It was just before closing time, and they had the place all to themselves.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'The Creamery',
+    address: '685 4th St, San Francisco, CA 94107, United States',
+    category: 'Restaurant',
+    closed: true,
+    latlng: [37.77745378363689, -122.39515752763064],
+    events: [
+      {
+        description: 'Coinbase co-founders first met here',
+        people: ['Brian Armstrong', 'Fred Ehrsam'],
+        year: 2012,
+        category: 'Technology',
+        quotes: [
+          {
+            title: 'Kings of Crypto',
+            authors: ['Jeff John Roberts'],
+            url: 'https://www.amazon.com/Kings-Crypto-Startups-Cryptocurrency-Silicon/dp/1647820189',
+            text: 'Fred and Brian met at The Creamery. Like so many other famous Silicon Valley venues, The Creamery doesn’t look like much: a low-slung, single-story wooden building with white letters above the doorframe; a small patio; some seat-yourself indoor tables; a menu of breakfast sandwiches, salads, and the usual assortment of cocktails and cappuccinos. It’s a modest place on a nondescript San Francisco street corner, yet its walls have heard billions of dollars’ worth of venture capital deals and countless startup pitches for massive successes and failures alike.',
           },
         ],
       },

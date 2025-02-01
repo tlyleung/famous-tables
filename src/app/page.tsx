@@ -49,7 +49,7 @@ const sidebar = (
   <Sidebar>
     <SidebarHeader>
       <SidebarSection>
-        <SidebarItem disabled>
+        <SidebarItem href="/" aria-label="Famous Tables">
           <Avatar
             initials="ft"
             className="size-6 bg-zinc-900 text-white dark:bg-white dark:text-black"

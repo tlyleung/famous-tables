@@ -94,17 +94,24 @@ export function Map({
         [bounds.getNorthEast().lat, bounds.getNorthEast().lng],
       ]);
     }
-  }, [map]);
+  }, [map, setBounds]);
 
   useEffect(() => {
     const fetchPlaces = async () => setPlaces(await getBoundedPlaces(bounds));
     fetchPlaces();
-  }, [bounds, map]);
+  }, [bounds, map, setPlaces]);
 
   useEffect(() => {
-    map?.on('move', onMove);
+    if (map) {
+      onMove(); // Initialize bounds when map is loaded
+      map.on('move', onMove);
+    }
+
     return () => {
-      map?.off('move', onMove);
+      if (map) {
+        map.off('move', onMove);
+        map.remove();
+      }
     };
   }, [map, onMove]);
 

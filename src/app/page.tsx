@@ -62,8 +62,8 @@ const sidebar = (
         <SidebarHeading>Cities</SidebarHeading>
         <SidebarItem
           onClick={() => {
-            map?.fitBounds(london);
             setIsSidebarOpen(false);
+            map?.fitBounds(london);
           }}
         >
           <BuildingOffice2Icon />
@@ -71,8 +71,8 @@ const sidebar = (
         </SidebarItem>
         <SidebarItem
           onClick={() => {
-            map?.fitBounds(newYork);
             setIsSidebarOpen(false);
+            map?.fitBounds(newYork);
           }}
         >
           <BuildingOffice2Icon />
@@ -80,8 +80,8 @@ const sidebar = (
         </SidebarItem>
         <SidebarItem
           onClick={() => {
-            map?.fitBounds(siliconValley);
             setIsSidebarOpen(false);
+            map?.fitBounds(siliconValley);
           }}
         >
           <BuildingOffice2Icon />
@@ -101,8 +101,8 @@ const sidebar = (
           <SidebarItem
             key={placeIndex}
             onClick={() => {
-              setPlace(place);
               setIsSidebarOpen(false);
+              setPlace(place);
             }}
             onMouseEnter={() => setPlaceHover(place)}
             onMouseLeave={() => setPlaceHover(null)}
@@ -124,8 +124,8 @@ const sidebar = (
       <SidebarSection>
         <SidebarItem
           onClick={() => {
-            setIsSuggestionDialogOpen(true);
             setIsSidebarOpen(false);
+            setIsSuggestionDialogOpen(true);
           }}
         >
           <BuildingStorefrontIcon />

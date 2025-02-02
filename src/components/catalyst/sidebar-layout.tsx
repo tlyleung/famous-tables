@@ -47,10 +47,10 @@ function MobileSidebar({ open, close, children }: React.PropsWithChildren<{ open
 export function SidebarLayout({
   navbar,
   sidebar,
+  showSidebar,
+  setShowSidebar,
   children,
-}: React.PropsWithChildren<{ navbar: React.ReactNode; sidebar: React.ReactNode }>) {
-  let [showSidebar, setShowSidebar] = useState(false)
-
+}: React.PropsWithChildren<{ navbar: React.ReactNode; sidebar: React.ReactNode, showSidebar: boolean; setShowSidebar: (open: boolean) => void }>) {
   return (
     <div className="relative isolate flex min-h-svh w-full bg-white max-lg:flex-col lg:bg-zinc-100 dark:bg-zinc-900 dark:lg:bg-zinc-950">
       {/* Sidebar on desktop */}

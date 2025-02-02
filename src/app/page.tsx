@@ -42,7 +42,8 @@ const sidebar = (
   map: L.Map | null,
   places: PlaceType[],
   setPlace: (place: PlaceType | null) => void,
-  setIsOpen: (open: boolean) => void,
+  setIsSidebarOpen: (open: boolean) => void,
+  setIsSuggestionDialogOpen: (open: boolean) => void,
   placeHover: PlaceType | null,
   setPlaceHover: (place: PlaceType | null) => void,
 ) => (
@@ -59,15 +60,30 @@ const sidebar = (
       </SidebarSection>
       <SidebarSection>
         <SidebarHeading>Cities</SidebarHeading>
-        <SidebarItem onClick={() => map?.fitBounds(london)}>
+        <SidebarItem
+          onClick={() => {
+            map?.fitBounds(london);
+            setIsSidebarOpen(false);
+          }}
+        >
           <BuildingOffice2Icon />
           <SidebarLabel>London</SidebarLabel>
         </SidebarItem>
-        <SidebarItem onClick={() => map?.fitBounds(newYork)}>
+        <SidebarItem
+          onClick={() => {
+            map?.fitBounds(newYork);
+            setIsSidebarOpen(false);
+          }}
+        >
           <BuildingOffice2Icon />
           <SidebarLabel>New York</SidebarLabel>
         </SidebarItem>
-        <SidebarItem onClick={() => map?.fitBounds(siliconValley)}>
+        <SidebarItem
+          onClick={() => {
+            map?.fitBounds(siliconValley);
+            setIsSidebarOpen(false);
+          }}
+        >
           <BuildingOffice2Icon />
           <SidebarLabel>Silicon Valley</SidebarLabel>
         </SidebarItem>
@@ -84,7 +100,10 @@ const sidebar = (
         {places.map((place, placeIndex) => (
           <SidebarItem
             key={placeIndex}
-            onClick={() => setPlace(place)}
+            onClick={() => {
+              setPlace(place);
+              setIsSidebarOpen(false);
+            }}
             onMouseEnter={() => setPlaceHover(place)}
             onMouseLeave={() => setPlaceHover(null)}
             data-hover={place === placeHover ? 'true' : undefined}
@@ -103,7 +122,12 @@ const sidebar = (
     </SidebarBody>
     <SidebarFooter className="max-lg:hidden">
       <SidebarSection>
-        <SidebarItem onClick={() => setIsOpen(true)}>
+        <SidebarItem
+          onClick={() => {
+            setIsSuggestionDialogOpen(true);
+            setIsSidebarOpen(false);
+          }}
+        >
           <BuildingStorefrontIcon />
           <SidebarLabel>Suggest a Place</SidebarLabel>
         </SidebarItem>
@@ -145,7 +169,8 @@ export default function Home() {
   const [place, setPlace] = useState<PlaceType | null>(null);
   const [placeHover, setPlaceHover] = useState<PlaceType | null>(null);
   const [places, setPlaces] = useState<PlaceType[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSuggestionDialogOpen, setIsSuggestionDialogOpen] = useState(false);
 
   return (
     <SidebarLayout
@@ -159,7 +184,7 @@ export default function Home() {
           </NavbarSection>
           <NavbarSpacer />
           <NavbarSection>
-            <NavbarItem onClick={() => setIsOpen(true)}>
+            <NavbarItem onClick={() => setIsSuggestionDialogOpen(true)}>
               <BuildingStorefrontIcon />
             </NavbarItem>
           </NavbarSection>
@@ -169,10 +194,13 @@ export default function Home() {
         map,
         places,
         setPlace,
-        setIsOpen,
+        setIsSidebarOpen,
+        setIsSuggestionDialogOpen,
         placeHover,
         setPlaceHover,
       )}
+      showSidebar={isSidebarOpen}
+      setShowSidebar={setIsSidebarOpen}
     >
       <DynamicMap
         bounds={bounds}
@@ -197,7 +225,10 @@ export default function Home() {
           setPlace={setPlace}
         />
       )}
-      <SuggestionDialog isOpen={isOpen} setIsOpen={setIsOpen} />
+      <SuggestionDialog
+        isOpen={isSuggestionDialogOpen}
+        setIsOpen={setIsSuggestionDialogOpen}
+      />
     </SidebarLayout>
   );
 }

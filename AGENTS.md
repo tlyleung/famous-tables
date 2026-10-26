@@ -14,7 +14,7 @@ database, and no test suite. All content lives in one TypeScript file.
 ```bash
 npm install          # Node 20 in CI; Node 22 works locally
 npm run dev          # http://localhost:3000
-npm run lint         # next lint (ESLint: next/core-web-vitals, next/typescript, prettier)
+npm run lint         # next lint over src/ (ESLint: next/core-web-vitals, next/typescript, prettier)
 npx tsc --noEmit     # typecheck (strict mode); not wired to a script
 npm run build        # static export to ./out (output: 'export')
 npx prettier --write <files>   # format; see .prettierrc
@@ -95,10 +95,11 @@ QuoteType { title, authors: string[], url /* may be '' */, text /* full paragrap
 
 ## Catalyst components (`src/components/catalyst/`)
 
-These are vendored from Tailwind UI's Catalyst kit and are intentionally
-excluded from Prettier (`.prettierignore`, though note the path there is stale:
-it says `src/app/components/catalyst/**`). Avoid editing them except when the
-app genuinely needs it. The one local change so far is `sidebar-layout.tsx`:
+These are vendored from Tailwind Plus's Catalyst kit and are intentionally
+excluded from both Prettier (`.prettierignore`) and ESLint (`ignorePatterns` in
+`.eslintrc.json`). Catalyst uses `let` and its own formatting by convention;
+do not "fix" that, so diffs against upstream updates stay clean. Avoid editing
+these files except when the app genuinely needs it. The one local change so far is `sidebar-layout.tsx`:
 `SidebarLayout` now takes `showSidebar`/`setShowSidebar` as props instead of
 owning that state, so `page.tsx` can close the mobile sidebar on item click.
 If you touch a Catalyst file, keep the change minimal and leave the rest of the
@@ -121,9 +122,8 @@ file in its upstream formatting.
 
 ## Gotchas
 
-- `next.config.mjs` sets `eslint: { dirs: ['app'] }`, so `next lint` only
-  checks `src/app`. Components and `data.ts` are not linted by it; rely on
-  `npx tsc --noEmit` for those.
+- `next.config.mjs` sets `eslint: { dirs: ['src'] }`, so `next lint` covers
+  the whole `src` tree except the Catalyst ignore pattern.
 - The site is a static export: no API routes, no server components that need
   request data, no `next/image` optimization. `CNAME` must stay at the repo
   root for the custom domain.

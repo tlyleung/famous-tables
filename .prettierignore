@@ -1,2 +1,2 @@
 # Ignore Catalyst components:
-src/app/components/catalyst
+src/components/catalyst/**

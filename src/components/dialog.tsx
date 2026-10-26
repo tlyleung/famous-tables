@@ -189,7 +189,7 @@ export function SuggestionDialog({
   const placeClosed = watch('placeClosed');
 
   // Called only if validation passes
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: z.infer<typeof schema>) => {
     const formData = {
       name: data.placeName,
       address: data.placeAddress,

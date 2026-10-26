@@ -12,7 +12,7 @@ database, and no test suite. All content lives in one TypeScript file.
 ## Commands
 
 ```bash
-npm install          # Next 16 needs Node >= 20.9; Node 22 works locally
+npm install          # Node 24 in CI; Next 16 needs >= 20.9
 npm run dev          # http://localhost:3000
 npm run lint         # eslint . (flat config in eslint.config.mjs; `next lint` no longer exists)
 npx tsc --noEmit     # typecheck (strict mode); not wired to a script

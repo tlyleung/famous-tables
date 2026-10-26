@@ -27,7 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { Fragment, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 const DynamicMiniMap = dynamic(
@@ -165,7 +165,7 @@ export function SuggestionDialog({
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -185,8 +185,8 @@ export function SuggestionDialog({
     },
   });
 
-  const eventDescription = watch('eventDescription');
-  const placeClosed = watch('placeClosed');
+  const eventDescription = useWatch({ control, name: 'eventDescription' });
+  const placeClosed = useWatch({ control, name: 'placeClosed' });
 
   // Called only if validation passes
   const onSubmit = (data: z.infer<typeof schema>) => {
@@ -253,7 +253,7 @@ ${jsonContent}
 
     // Generate mailto link with the formatted email content
     const mailtoLink = `mailto:timothyleung@gmail.com?subject=Suggested Place: ${formData.name}&body=${encodeURIComponent(emailBody)}`;
-    window.location.href = mailtoLink;
+    window.location.assign(mailtoLink);
 
     // Close dialog
     setIsOpen(false);
